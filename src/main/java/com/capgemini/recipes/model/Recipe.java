@@ -1,27 +1,28 @@
 package com.capgemini.recipes.model;
 
-import java.time.Instant;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Recipe {
-
+	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -32,26 +33,26 @@ public class Recipe {
     @NotBlank
     private String servings;
     
-    @NotBlank
+    @NotNull
     private Integer cookTime;
     
-    @NotBlank
-    private Integer calories;
-
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy= "recipe")
-    private List<Ingredients> ingredients = new ArrayList<>();
+    private List<Ingredient> ingredients = new ArrayList<>();
 
-    protected void setIngredients(List<Ingredients> ingredient) {
+    protected void setIngredients(List<Ingredient> ingredient) {
         this.ingredients = ingredient;
     }
 
-    public void addToIngredients(Ingredients ingredient) {
+    public void addToIngredients(Ingredient ingredient) {
     	ingredient.setRecipe(this);
         this.ingredients.add(ingredient);
     }
   
-    private Instant createdDate;
+    @CreationTimestamp
+    @Column(updatable = false)
+    private Date createdDate;
     
-    private Instant modifiedDate;
+    @UpdateTimestamp
+    private Date modifiedDate;
 
 }

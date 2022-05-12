@@ -5,6 +5,8 @@ import static org.springframework.http.ResponseEntity.status;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capgemini.recipes.dto.RecipeDto;
 import com.capgemini.recipes.service.RecipeService;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("api/recipes")
-@AllArgsConstructor
 @Slf4j
 public class RecipeController {
 
@@ -34,22 +34,26 @@ public class RecipeController {
 
 	@GetMapping("/allrecipes")
 	public ResponseEntity<List<RecipeDto>> getAllRecipes(){
+	    log.debug(":::::::In getAllRecipes method :::::::::::");
 		return status(HttpStatus.OK).body(recipeService.getAllRecipes());
 	}
 
 	@GetMapping("/show/{id}")
 	public ResponseEntity<RecipeDto>  getRecipeById(@PathVariable Long id){ 
+	    log.debug(":::::::In getRecipeById method :::::::::::");
 		return status(HttpStatus.OK).body(recipeService.findById(id)); 
 	}
 
 	@PostMapping
-	public ResponseEntity<RecipeDto> createPost(@RequestBody RecipeDto recipeDto) {
+	public ResponseEntity<RecipeDto> createPost(@Valid @RequestBody RecipeDto recipeDto) {
+	    log.debug(":::::::In createpost method :::::::::::");
 		recipeService.save(recipeDto);
 		return new	ResponseEntity<>(HttpStatus.CREATED); 
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<RecipeDto> update(@RequestBody RecipeDto recipeDto, @PathVariable Long id) {
+	public ResponseEntity<RecipeDto> update(@Valid @RequestBody RecipeDto recipeDto, @PathVariable Long id) {
+	    log.debug(":::::::In update method :::::::::::");
 		try {
 			RecipeDto existRecipeDto = recipeService.findById(id);
 			recipeDto.setId(existRecipeDto.getId());
@@ -62,6 +66,7 @@ public class RecipeController {
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
+	    log.debug(":::::::In delete method :::::::::::");
 		recipeService.delete(id);
 	}
 

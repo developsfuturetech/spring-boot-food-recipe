@@ -3,10 +3,12 @@ package com.capgemini.recipes.exceptions;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,6 +36,23 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return ResponseEntityBuilder.build(err);
     }
 	
+	// handleMethodArgumentNotValid : triggers when @Valid fails
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+		List<String> details = new ArrayList<>();
+		details = ex.getBindingResult()
+				    .getFieldErrors()
+					.stream()
+					.map(error -> error.getDefaultMessage())
+					.collect(Collectors.toList());
+
+		ApiError err = new ApiError(LocalDateTime.now(),HttpStatus.BAD_REQUEST,"Validation Errors" ,details);
+
+		return ResponseEntityBuilder.build(err);
+	}
+
 	// handleMethodArgumentTypeMismatch : triggers when a parameter's type does not match
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
     protected ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex,

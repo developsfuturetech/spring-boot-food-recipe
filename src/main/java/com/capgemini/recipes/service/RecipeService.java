@@ -12,56 +12,58 @@ import org.springframework.stereotype.Service;
 
 import com.capgemini.recipes.dto.RecipeDto;
 import com.capgemini.recipes.exceptions.ResourceNotFoundException;
-import com.capgemini.recipes.model.Ingredients;
+import com.capgemini.recipes.model.Ingredient;
 import com.capgemini.recipes.model.Recipe;
 import com.capgemini.recipes.repository.RecipeRepository;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
-@AllArgsConstructor
+@Slf4j
 public class RecipeService {
 
 	@Autowired
 	private RecipeRepository recipeRepository;
 
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 
 	public List<RecipeDto> getAllRecipes() {
+		log.debug(":::::::In getAllRecipes method :::::::::::");
 		return recipeRepository.findAll()
 				.stream().map(this::convertEntityToDto).collect(toList());
 	}
 
 	public RecipeDto findById(Long id) {
+		log.debug(":::::::In findById method :::::::::::");
 		Recipe recipe = recipeRepository.findById(id)
 				.orElseThrow(()->new ResourceNotFoundException("Recipe with ID :"+id+" Not Found!"));
 		return convertEntityToDto(recipe);
 	}
 
 	public void save(RecipeDto recipeDto) {
+		log.debug(":::::::In save method :::::::::::");
+		List<Ingredient> ingredientList=recipeDto.getIngredients().stream().map(t -> {return modelMapper.map(t, Ingredient.class);
+		}).collect(Collectors.toList());
 
-		List<Ingredients> ingredientList=recipeDto.getIngredients().stream().map(t -> {return modelMapper.map(t, Ingredients.class);
-			}).collect(Collectors.toList());
-	
 		Recipe recipe=modelMapper.map(recipeDto, Recipe.class);
-		for(Ingredients ingredients: ingredientList ) {
-			ingredients.setCreatedDate(Instant.now());
+		for(Ingredient ingredients: ingredientList ) {
 			recipe.addToIngredients(ingredients);
 		}
-		recipe.setCreatedDate(Instant.now());
 		recipeRepository.saveAndFlush(recipe);
 	}
 
 	public void delete(Long id) {
+		log.debug(":::::::In delete method :::::::::::");
 		recipeRepository.findById(id)
-				.orElseThrow(()->new ResourceNotFoundException("Recipe with ID :"+id+" Not Found!"));
+		.orElseThrow(()->new ResourceNotFoundException("Recipe with ID :"+id+" Not Found!"));
 		recipeRepository.deleteById(id);
 	}
 
 	private RecipeDto convertEntityToDto(Recipe recipe) {
-
+		log.debug(":::::::In convertEntityToDto method :::::::::::");
 		return modelMapper.map(recipe, RecipeDto.class);
 	}
 }
