@@ -38,8 +38,17 @@ public class Recipe {
     @NotBlank
     private Integer calories;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy= "recipe")
-    private List<Ingredients> ingredients = new ArrayList<Ingredients>();
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy= "recipe")
+    private List<Ingredients> ingredients = new ArrayList<>();
+
+    protected void setIngredients(List<Ingredients> ingredient) {
+        this.ingredients = ingredient;
+    }
+
+    public void addToIngredients(Ingredients ingredient) {
+    	ingredient.setRecipe(this);
+        this.ingredients.add(ingredient);
+    }
   
     private Instant createdDate;
     

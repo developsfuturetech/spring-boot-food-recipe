@@ -26,5 +26,5 @@ public class RecipeDto {
 	private String servings;
 	private Integer cooktime;
 	private Integer calories;
-    private List<IngredientDto> ingredients = new ArrayList<IngredientDto>();
+    private List<IngredientDto> ingredients = new ArrayList<>();
 }

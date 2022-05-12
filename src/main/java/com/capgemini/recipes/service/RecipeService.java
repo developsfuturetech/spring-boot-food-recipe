@@ -6,10 +6,10 @@ import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capgemini.recipes.dto.IngredientDto;
 import com.capgemini.recipes.dto.RecipeDto;
 import com.capgemini.recipes.exceptions.ResourceNotFoundException;
 import com.capgemini.recipes.model.Ingredients;
@@ -25,6 +25,10 @@ public class RecipeService {
 	@Autowired
 	private RecipeRepository recipeRepository;
 
+	
+	@Autowired
+	private ModelMapper modelMapper;
+
 	public List<RecipeDto> getAllRecipes() {
 		return recipeRepository.findAll()
 				.stream().map(this::convertEntityToDto).collect(toList());
@@ -37,46 +41,27 @@ public class RecipeService {
 	}
 
 	public void save(RecipeDto recipeDto) {
-		Recipe recipe=new Recipe();
 
-		//  recipe.setIngredients(recipeDto.getIngredients());
-		recipe.setName(recipeDto.getName());
-		recipe.setCookTime(recipeDto.getCooktime());
-		recipe.setServings(recipeDto.getServings());
-		recipe.setCalories(recipeDto.getCalories());
+		List<Ingredients> ingredientList=recipeDto.getIngredients().stream().map(t -> {return modelMapper.map(t, Ingredients.class);
+			}).collect(Collectors.toList());
+	
+		Recipe recipe=modelMapper.map(recipeDto, Recipe.class);
+		for(Ingredients ingredients: ingredientList ) {
+			ingredients.setCreatedDate(Instant.now());
+			recipe.addToIngredients(ingredients);
+		}
 		recipe.setCreatedDate(Instant.now());
-		recipeRepository.save(recipe);
-
+		recipeRepository.saveAndFlush(recipe);
 	}
 
 	public void delete(Long id) {
-		Recipe recipe = recipeRepository.findById(id)
+		recipeRepository.findById(id)
 				.orElseThrow(()->new ResourceNotFoundException("Recipe with ID :"+id+" Not Found!"));
 		recipeRepository.deleteById(id);
 	}
 
 	private RecipeDto convertEntityToDto(Recipe recipe) {
-		return RecipeDto.builder().id(recipe.getId())
-				.name(recipe.getName())
-				.calories(recipe.getCalories())
-				.cooktime(recipe.getCookTime())
-				.ingredients(convertIngredientEntityToDto(recipe.getIngredients()))
-				.servings(recipe.getServings())
-				.build();
+
+		return modelMapper.map(recipe, RecipeDto.class);
 	}
-
-	private List<IngredientDto> convertIngredientEntityToDto(List<Ingredients> ingredientList) {
-
-		List<IngredientDto> ingredientDtoList = ingredientList.stream().map(t -> {return IngredientDto.builder().id(t.getId())
-				.ingredientName(t.getName()) .quantity(t.getQuantity())
-				.build();}).collect(Collectors.toList());
-
-		return ingredientDtoList;
-
-	}	
-
-
-
-
-
 }

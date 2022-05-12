@@ -19,7 +19,8 @@ public class IngredientDto {
 	private Long id;
 	@NotEmpty
 	@Size(min = 5, message = "ingredient name should have at least 5 characters")
-	private String ingredientName;
+	private String name;
 	@NotEmpty
 	private Integer quantity;
+
 }

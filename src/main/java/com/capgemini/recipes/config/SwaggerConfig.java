@@ -26,7 +26,7 @@ public class SwaggerConfig {
  
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Favourite Food Recipe API")
+                .title("Food Recipe API")
                 .description("API for Food Recipe items")
                 .version("v1")
                 .build();

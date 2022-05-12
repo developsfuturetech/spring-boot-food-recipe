@@ -26,7 +26,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             MissingServletRequestParameterException ex, HttpHeaders headers,
             HttpStatus status, WebRequest request) {
 		
-		List<String> details = new ArrayList<String>();
+		List<String> details = new ArrayList<>();
 		details.add(ex.getParameterName() + " parameter is missing");
 
 		ApiError err = new ApiError(LocalDateTime.now(),HttpStatus.BAD_REQUEST, "Missing Parameters" ,details);
@@ -38,7 +38,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
     protected ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex,
                                                                       WebRequest request) {
-        List<String> details = new ArrayList<String>();
+        List<String> details = new ArrayList<>();
 		details.add(ex.getMessage());
       
 		ApiError err = new ApiError(LocalDateTime.now(),HttpStatus.BAD_REQUEST, "Mismatch Type" ,details);
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {
        
-		List<String> details = new ArrayList<String>();
+		List<String> details = new ArrayList<>();
 		details.add(ex.getMessage());
 		
 		ApiError err = new ApiError(LocalDateTime.now(),HttpStatus.NOT_FOUND, "Resource Not Found" ,details);
@@ -62,7 +62,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler({ Exception.class })
 	public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
 		
-		List<String> details = new ArrayList<String>();
+		List<String> details = new ArrayList<>();
 		details.add(ex.getLocalizedMessage());
 		
 		ApiError err = new ApiError(LocalDateTime.now(),HttpStatus.BAD_REQUEST, "Error occurred" ,details);
