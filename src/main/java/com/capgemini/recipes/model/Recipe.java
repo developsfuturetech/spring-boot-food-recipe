@@ -1,7 +1,7 @@
 package com.capgemini.recipes.model;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,15 +11,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Recipe {
 	
@@ -33,10 +38,10 @@ public class Recipe {
     @NotBlank
     private String servings;
     
-    @NotNull
-    private Integer cookTime;
+    @NotBlank
+    private String cookTime;
     
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy= "recipe")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy= "recipe")
     private List<Ingredient> ingredients = new ArrayList<>();
 
     protected void setIngredients(List<Ingredient> ingredient) {
@@ -50,9 +55,11 @@ public class Recipe {
   
     @CreationTimestamp
     @Column(updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
     
     @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedDate;
 
 }

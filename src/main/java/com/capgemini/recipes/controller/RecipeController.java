@@ -3,7 +3,6 @@ package com.capgemini.recipes.controller;
 import static org.springframework.http.ResponseEntity.status;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import javax.validation.Valid;
 
@@ -34,39 +33,33 @@ public class RecipeController {
 
 	@GetMapping("/allrecipes")
 	public ResponseEntity<List<RecipeDto>> getAllRecipes(){
-	    log.debug(":::::::In getAllRecipes method :::::::::::");
+		log.debug(":::::::In getAllRecipes method :::::::::::");
 		return status(HttpStatus.OK).body(recipeService.getAllRecipes());
 	}
 
 	@GetMapping("/show/{id}")
 	public ResponseEntity<RecipeDto>  getRecipeById(@PathVariable Long id){ 
-	    log.debug(":::::::In getRecipeById method :::::::::::");
+		log.debug(":::::::In getAllRecipes method :::::::::::");
 		return status(HttpStatus.OK).body(recipeService.findById(id)); 
 	}
 
 	@PostMapping
 	public ResponseEntity<RecipeDto> createPost(@Valid @RequestBody RecipeDto recipeDto) {
-	    log.debug(":::::::In createpost method :::::::::::");
+		log.debug(":::::::In createpost method :::::::::::");
 		recipeService.save(recipeDto);
 		return new	ResponseEntity<>(HttpStatus.CREATED); 
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<RecipeDto> update(@Valid @RequestBody RecipeDto recipeDto, @PathVariable Long id) {
-	    log.debug(":::::::In update method :::::::::::");
-		try {
-			RecipeDto existRecipeDto = recipeService.findById(id);
-			recipeDto.setId(existRecipeDto.getId());
-			recipeService.save(recipeDto);
-			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (NoSuchElementException e) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}      
+		log.debug(":::::::In update method :::::::::::");
+		recipeService.update(recipeDto, id);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-	    log.debug(":::::::In delete method :::::::::::");
+		log.debug(":::::::In delete method :::::::::::");
 		recipeService.delete(id);
 	}
 

@@ -1,21 +1,25 @@
 package com.capgemini.recipes.dto;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class IngredientDto {
 	
-   @ApiModelProperty(hidden = true)
+	@JsonIgnore
 	private Long id;
 	@NotEmpty
 	@Size(min = 3, message = "Ingredient Name should be at least 3 characters")
 	private String name;
-	@NotNull
-	private Integer quantity;
-
+	@NotEmpty
+	private String quantity;
+	
 }
