@@ -36,6 +36,9 @@ public class Recipe {
     private String name;
     
     @NotBlank
+    private String category;
+    
+    @NotBlank
     private String servings;
     
     @NotBlank

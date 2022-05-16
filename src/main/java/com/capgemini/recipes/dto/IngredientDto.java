@@ -16,9 +16,11 @@ public class IngredientDto {
 	
 	@JsonIgnore
 	private Long id;
+	
 	@NotEmpty
 	@Size(min = 3, message = "Ingredient Name should be at least 3 characters")
 	private String name;
+	
 	@NotEmpty
 	private String quantity;
 	

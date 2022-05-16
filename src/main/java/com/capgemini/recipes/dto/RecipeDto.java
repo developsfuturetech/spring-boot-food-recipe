@@ -19,12 +19,18 @@ public class RecipeDto {
 	
 	@JsonIgnore
 	private Long id;
+	
 	@NotEmpty
 	@Size(min = 3, message = "Recipe Name should have at least 3 characters")
 	private String name;
+	
+	@NotEmpty
+	private String category;
+	
 	@NotEmpty
 	@Size(min = 1, message = "Recipe Servings should have at least 1")
 	private String servings;
+	
 	@NotEmpty
 	private String cooktime;
 

@@ -74,11 +74,11 @@ public class RecipeService {
 	public void delete(Long id) {
 		log.debug(":::::::In delete method :::::::::::");
 		recipeRepository.findById(id)
-		.orElseThrow(()->new ResourceNotFoundException("Recipe with ID :"+id+" Not Found!"));
+		.orElseThrow(()->new ResourceNotFoundException("Recipe with ID: "+id+" Not Found!"));
 		recipeRepository.deleteById(id);
 	}
 
-	private RecipeDto convertEntityToDto(Recipe recipe) {
+	public RecipeDto convertEntityToDto(Recipe recipe) {
 		log.debug(":::::::In convertEntityToDto method :::::::::::");
 		return modelMapper.map(recipe, RecipeDto.class);
 	}
