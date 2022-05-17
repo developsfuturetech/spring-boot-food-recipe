@@ -27,6 +27,8 @@ public class RecipeService {
 	@Autowired
 	private ModelMapper modelMapper;
 
+	private static final String NOT_FOUND = " Not Found!";
+	
 	// This method retrieves all the available Recipe data from the database 
 	public List<RecipeDto> getAllRecipes() {
 		log.debug(":::::::In getAllRecipes method :::::::::::");
@@ -37,7 +39,7 @@ public class RecipeService {
 	public RecipeDto findById(Long id) {
 		log.debug(":::::::In findById method :::::::::::");
 		Recipe recipe = recipeRepository.findById(id)
-				.orElseThrow(()->new ResourceNotFoundException("Recipe with ID :"+id+" Not Found!"));
+				.orElseThrow(()->new ResourceNotFoundException("Recipe with ID :"+id+NOT_FOUND));
 		return convertEntityToDto(recipe);
 	}
 	// This method saves the recipe & ingredients data in the database.
@@ -59,7 +61,7 @@ public class RecipeService {
 		log.debug(":::::::In update method :::::::::::");
 
 		Recipe recipe = recipeRepository.findById(id)
-				.orElseThrow(()->new ResourceNotFoundException("Recipe with ID :"+id+" Not Found!"));
+				.orElseThrow(()->new ResourceNotFoundException("Recipe with ID :"+id+NOT_FOUND));
 		List<Ingredient> ingredientList = recipe.getIngredients();
 
 		recipe.setCookTime(recipeDto.getCooktime());
@@ -77,7 +79,7 @@ public class RecipeService {
 	public void delete(Long id) {
 		log.debug(":::::::In delete method :::::::::::");
 		recipeRepository.findById(id)
-		.orElseThrow(()->new ResourceNotFoundException("Recipe with ID: "+id+" Not Found!"));
+		.orElseThrow(()->new ResourceNotFoundException("Recipe with ID: "+id+NOT_FOUND));
 		recipeRepository.deleteById(id);
 	}
 

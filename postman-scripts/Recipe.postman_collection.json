@@ -1,0 +1,267 @@
+{
+	"id": "e3b53eb4-e6ac-c945-aacd-7e6ecaf6efc1",
+	"name": "Recipe",
+	"description": "",
+	"order": [
+		"d6881349-e94c-7453-3799-9603945aee3e",
+		"c9fac822-2a64-c061-e039-5fa8d87122ab",
+		"741a4852-f80b-77b4-f618-99ba56ecaaaa",
+		"f458e0aa-0144-0c1c-de4a-08c2f296f091",
+		"fdd2527d-30cd-f990-52aa-90e4aba449cf",
+		"6217682d-552e-8baf-6fd6-eb89c610dbc3",
+		"2ab39e03-f9cf-13df-32c0-c08d5183ac25"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1652531584285,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "2ab39e03-f9cf-13df-32c0-c08d5183ac25",
+			"headers": "Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8081/capgemini/api/recipes/show/10000",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "e3b53eb4-e6ac-c945-aacd-7e6ecaf6efc1",
+			"data": null,
+			"dataMode": "params",
+			"name": "Resourec Not Found",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1652779008382,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "6217682d-552e-8baf-6fd6-eb89c610dbc3",
+			"headers": "Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8081/capgemini/api/recipes/",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "e3b53eb4-e6ac-c945-aacd-7e6ecaf6efc1",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Validation Errors",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1652778910907,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "    {\n        \"name\": \"Noodles\",\n        \"category\": \"Veg\",\n        \"cooktime\": \"10 mins\",\n        \"ingredients\": [\n            {\n                \"name\": \"Maggie Noodle\",\n                \"quantity\": \"1 packet\"\n            },\n            {\n                \"name\": \"Salt\",\n                \"quantity\": \"1 tablespoon\"\n            },\n            {\n                \"name\": \"Onions\",\n                \"quantity\": \"2\"\n            },\n            {\n                \"name\": \"Chillie\",\n                \"quantity\": \"3\"\n            }\n        ]\n    }"
+		},
+		{
+			"id": "741a4852-f80b-77b4-f618-99ba56ecaaaa",
+			"headers": "Content-Type: application/json\nAuthorization: Basic dXNlcjpwYXNzd29yZA==\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Basic dXNlcjpwYXNzd29yZA==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8081/capgemini/api/recipes/100",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "DELETE",
+			"collectionId": "e3b53eb4-e6ac-c945-aacd-7e6ecaf6efc1",
+			"data": null,
+			"dataMode": "params",
+			"name": "Delete Recipe",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1652662512672,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "c9fac822-2a64-c061-e039-5fa8d87122ab",
+			"headers": "Content-Type: application/json\nAuthorization: Basic dXNlcjpwYXNzd29yZA==\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Basic dXNlcjpwYXNzd29yZA==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8081/capgemini/api/recipes/",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1652669355585,
+			"name": "Create Recipe",
+			"description": "Post call",
+			"collectionId": "e3b53eb4-e6ac-c945-aacd-7e6ecaf6efc1",
+			"responses": [],
+			"rawModeData": "    {\n        \"name\": \"Noodles\",\n        \"category\": \"Veg\",\n        \"servings\": \"2 members\",\n        \"cooktime\": \"10 mins\",\n        \"ingredients\": [\n            {\n                \"name\": \"Maggie Noodle\",\n                \"quantity\": \"1 packet\"\n            },\n            {\n                \"name\": \"Salt\",\n                \"quantity\": \"1 tablespoon\"\n            },\n            {\n                \"name\": \"Onions\",\n                \"quantity\": \"2\"\n            },\n            {\n                \"name\": \"Chillie\",\n                \"quantity\": \"3\"\n            }\n        ]\n    }"
+		},
+		{
+			"id": "d6881349-e94c-7453-3799-9603945aee3e",
+			"headers": "Content-Type: application/json\nAuthorization: Basic dXNlcjpwYXNzd29yZA==\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "",
+					"value": "",
+					"description": "",
+					"enabled": false
+				},
+				{
+					"key": "Authorization",
+					"value": "Basic dXNlcjpwYXNzd29yZA==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8081/capgemini/api/recipes/allrecipes",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "e3b53eb4-e6ac-c945-aacd-7e6ecaf6efc1",
+			"data": null,
+			"dataMode": "params",
+			"name": "All Recipes",
+			"description": "Get all recipes data",
+			"descriptionFormat": "html",
+			"time": 1652531587760,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "f458e0aa-0144-0c1c-de4a-08c2f296f091",
+			"headers": "Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8081/capgemini/api/recipes/1",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "e3b53eb4-e6ac-c945-aacd-7e6ecaf6efc1",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Update Recipe",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1652767671668,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "    {\n        \"name\": \"Noodles\",\n        \"category\": \"Veg\",\n        \"servings\": \"20 members\" ,\n        \"cooktime\": \"10 mins\",\n        \"ingredients\": [\n            {\n                \"name\": \"Maggie Noodle\",\n                \"quantity\": \"1 packet\"\n            },\n            {\n                \"name\": \"Salt\",\n                \"quantity\": \"1 tablespoon\"\n            },\n            {\n                \"name\": \"Onions\",\n                \"quantity\": \"3\"\n            },\n            {\n                \"name\": \"Chillie\",\n                \"quantity\": \"3\"\n            }\n        ]\n    }"
+		},
+		{
+			"id": "fdd2527d-30cd-f990-52aa-90e4aba449cf",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8081/capgemini/api/recipes/1",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "e3b53eb4-e6ac-c945-aacd-7e6ecaf6efc1",
+			"data": null,
+			"dataMode": "params",
+			"name": "UnAuthorized",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1652778800358,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}
