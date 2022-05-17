@@ -9,7 +9,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,18 +30,31 @@ public class RecipeController {
 	@Autowired
 	private  RecipeService recipeService;
 
+
+	/** Returns all recipes information  */
 	@GetMapping("/allrecipes")
 	public ResponseEntity<List<RecipeDto>> getAllRecipes(){
 		log.debug(":::::::In getAllRecipes method :::::::::::");
 		return status(HttpStatus.OK).body(recipeService.getAllRecipes());
 	}
 
+	/**
+	 * Returns recipe data based on the id
+	 * 
+	 * @param id - Recipe ID
+	 */
 	@GetMapping("/show/{id}")
 	public ResponseEntity<RecipeDto>  getRecipeById(@PathVariable Long id){ 
 		log.debug(":::::::In getAllRecipes method :::::::::::");
 		return status(HttpStatus.OK).body(recipeService.findById(id)); 
 	}
 
+	/**
+	 * Returns recipe data based on the id
+	 * 
+	 * @param recipeDto - RecipeDto
+	 * @param id - Recipe ID
+	 */
 	@PostMapping
 	public ResponseEntity<RecipeDto> createPost(@Valid @RequestBody RecipeDto recipeDto) {
 		log.debug(":::::::In createpost method :::::::::::");
@@ -50,6 +62,12 @@ public class RecipeController {
 		return new	ResponseEntity<>(HttpStatus.CREATED); 
 	}
 
+	/**
+	 * Update recipe data based on the id
+	 * 
+	 * @param recipeDto - RecipeDto
+	 * @param id - Recipe ID	
+	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<RecipeDto> update(@Valid @RequestBody RecipeDto recipeDto, @PathVariable Long id) {
 		log.debug(":::::::In update method :::::::::::");
@@ -57,7 +75,11 @@ public class RecipeController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{id}")
+	/**
+	 * deletes recipe data based on the id
+	 * 
+	 * @param id - Recipe ID
+	 */
 	public void delete(@PathVariable Long id) {
 		log.debug(":::::::In delete method :::::::::::");
 		recipeService.delete(id);

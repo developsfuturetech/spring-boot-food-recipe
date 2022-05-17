@@ -9,9 +9,11 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class Ingredient {
 
     @Id
@@ -28,4 +30,11 @@ public class Ingredient {
     @JoinColumn(name="ingredient_id", nullable=false)
     private Recipe recipe;
 
+    public Ingredient(Long id, String name, String quantity) {
+    	this.id = id;
+    	this.name = name;
+    	this.quantity = quantity;
+    			
+    	
+    }
 }

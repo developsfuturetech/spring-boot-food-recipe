@@ -1,7 +1,5 @@
 package com.capgemini.recipes.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -23,7 +21,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.capgemini.recipes.dto.IngredientDto;
 import com.capgemini.recipes.dto.RecipeDto;
-import com.capgemini.recipes.exceptions.ResourceNotFoundException;
 import com.capgemini.recipes.repository.RecipeRepository;
 import com.capgemini.recipes.service.RecipeService;
 
@@ -53,7 +50,7 @@ public class RecipeControllerTest {
 
 	@Test
 	@WithMockUser(username = "username", password = "password", roles = "")
-	public void getAllRecords_success() throws Exception {
+	public void getAllRecordsSuccess() throws Exception {
 
 		List<RecipeDto> records = Arrays.asList(RECORD_1);
 
@@ -63,63 +60,41 @@ public class RecipeControllerTest {
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 		.andExpect(jsonPath("$[0].name").value("Biryani"));
 	}
-	
+
 	@Test
 	@WithMockUser(username = "username", password = "password", roles = "")
-	public void getRecipeById_success() throws Exception {
+	public void getRecipeByIdSuccess() throws Exception {
 
 		Mockito.when(recipeService.findById(1L)).thenReturn(RECORD_1);
 		mockMvc.perform(get("/api/recipes//show/{id}", "1").contentType(MediaType.APPLICATION_JSON).characterEncoding("utf-8")
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 		.andExpect(jsonPath("$.name").value("Biryani"));
 	}
-	
+
 
 	@Test
 	@WithMockUser(username = "username", password = "password", roles = "")
-	public void testPost_success() throws Exception {
-	  
-	  mockMvc.perform(MockMvcRequestBuilders.post("/api/recipes/").contentType(MediaType.APPLICATION_JSON).characterEncoding("utf-8")
-	    .content(exampleRecipeJson).accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-	 }
+	public void testPostSuccess() throws Exception {
 
-	@Test
-	@WithMockUser(username = "username", password = "password", roles = "")
-	public void testPut_success() throws Exception {
-	  
-	  mockMvc.perform(MockMvcRequestBuilders.put("/api/recipes/{id}", "1").contentType(MediaType.APPLICATION_JSON).characterEncoding("utf-8")
-	    .content(exampleRecipeJson).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-	 }
-	
-	@Test
-	@WithMockUser(username = "user", password = "password", roles = "")
-	public void testDelete_failure() throws Exception {
-
-		Mockito.doThrow(new ResourceNotFoundException("Recipe with ID: 1 Not Found!")).when(recipeService).delete(1L);
-		this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/recipes/{id}", "1")
-				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().is4xxClientError())
-		.andExpect(jsonPath("$.errors[0]").value("Recipe with ID: 1 Not Found!"));
-
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/recipes/").contentType(MediaType.APPLICATION_JSON).characterEncoding("utf-8")
+				.content(exampleRecipeJson).accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
 	}
-	
+
 	@Test
 	@WithMockUser(username = "username", password = "password", roles = "")
-	public void testDelete_success() throws Exception {
+	public void testPutSuccess() throws Exception {
+
+		mockMvc.perform(MockMvcRequestBuilders.put("/api/recipes/{id}", "1").contentType(MediaType.APPLICATION_JSON).characterEncoding("utf-8")
+				.content(exampleRecipeJson).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+	}
+
+	@Test
+	@WithMockUser(username = "username", password = "password", roles = "")
+	public void testDeleteSuccess() throws Exception {
 
 		this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/recipes/{id}", "1")
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-
 	}	 
 	
-	@Test
-	public void whenIdIsNull_thenExceptionIsThrown() {
-
-		ResourceNotFoundException exception = assertThrows(
-				ResourceNotFoundException.class, 
-				() -> { throw new ResourceNotFoundException("Recipe with ID: 1 Not Found!"); }
-				);
-
-		assertEquals(ResourceNotFoundException.class, exception.getClass());
-	}
 }
 

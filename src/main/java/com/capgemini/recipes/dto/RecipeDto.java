@@ -20,18 +20,18 @@ public class RecipeDto {
 	@JsonIgnore
 	private Long id;
 	
-	@NotEmpty
+	@NotEmpty(message= "Recipe Name cannot be empty")
 	@Size(min = 3, message = "Recipe Name should have at least 3 characters")
 	private String name;
 	
-	@NotEmpty
+	@NotEmpty(message= "Category cannot be empty")
 	private String category;
 	
-	@NotEmpty
+	@NotEmpty(message= "Servings cannot be empty")
 	@Size(min = 1, message = "Recipe Servings should have at least 1")
 	private String servings;
 	
-	@NotEmpty
+	@NotEmpty(message= "Cooktime cannot be empty")
 	private String cooktime;
 
 	private List<IngredientDto> ingredients = new ArrayList<>();

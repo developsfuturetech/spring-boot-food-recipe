@@ -76,7 +76,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return ResponseEntityBuilder.build(err);
 	}
 	
-		
+    // handle all exceptions raised in the api		
 	@ExceptionHandler({ Exception.class })
 	public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
 		
