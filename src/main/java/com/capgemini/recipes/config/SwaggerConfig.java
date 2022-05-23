@@ -18,7 +18,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.regex("/capgemini/api/.*"))
+                .paths(PathSelectors.regex("/cap/api/.*"))
                 .build()
                 .apiInfo(apiInfo());
                 
